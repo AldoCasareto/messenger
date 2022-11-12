@@ -1,20 +1,15 @@
 import React from 'react';
+import { Chat } from '../../typings';
 
-function MessageList() {
-  const messages = [
-    { message: 'hello', user: 'aldo' },
-    { message: 'poronga', user: 'raul' },
-    { message: 'mateus', user: 'plopo' },
-  ];
-
+async function MessageList() {
   return (
     <div>
-      {messages.map(({ message, user }) => (
+      {/* {messages.map(({ chat, created_at }) => (
         <div>
-          <p>{message}-</p>
-          <p>{user}</p>
+          <p>{chat}-</p>
+          <p>{created_at}</p>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

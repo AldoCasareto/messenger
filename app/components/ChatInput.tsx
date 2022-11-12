@@ -2,9 +2,12 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { Chat } from '../../typings';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetchMessages';
 
 function ChatInput() {
   const [chat, setChat] = useState('');
+  const { data, error, mutate } = useSWR('/api/getmessages', fetcher);
 
   const handleChat = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ function ChatInput() {
         },
         body: JSON.stringify({ message }),
       });
+
       console.log(res);
       const data = await res.json();
       console.log('message added', data);

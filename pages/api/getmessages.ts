@@ -19,5 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     .map((message) => JSON.parse(message))
     .sort((a, b) => b.created_at - a.created_at);
 
+  const messageArray = messages;
+
   res.status(200).json({ messages });
 }

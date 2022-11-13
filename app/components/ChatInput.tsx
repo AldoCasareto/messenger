@@ -7,9 +7,11 @@ import { fetcher } from '../../utils/fetchMessages';
 
 function ChatInput() {
   const [chat, setChat] = useState('');
-  const { data, error, mutate } = useSWR('/api/getmessages', fetcher);
+  const { data: messages, error, mutate } = useSWR<Chat[]>('/api/getmessages', fetcher);
 
-  const handleChat = (e: React.FormEvent<HTMLFormElement>) => {
+  console.log(`foo = `, messages);
+
+  const handleChat = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const message: Chat = {
       chat,
@@ -29,11 +31,15 @@ function ChatInput() {
         body: JSON.stringify({ message }),
       });
 
-      console.log(res);
+      console.log('res', res);
+
       const data = await res.json();
-      console.log('message added', data);
+      return [data?.message, { ...(messages ?? []) }];
     };
-    uploadMessage();
+
+    await mutate(uploadMessage, {
+      optimisticData: [message, ...(messages ?? [])],
+    });
     setChat('');
   };
 

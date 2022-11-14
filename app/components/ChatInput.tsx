@@ -14,13 +14,15 @@ function ChatInput() {
   const handleChat = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const message: Chat = {
-      chat,
+      message: chat,
       id: uuid(),
       created_at: Date.now(),
       username: 'aldo',
       profilePic: 'https://www.fairtravel4u.org/wp-content/uploads/2018/06/sample-profile-pic.png',
       email: 'acasareto@gmail.com',
     };
+
+    console.log(message);
 
     const uploadMessage = async () => {
       const res = await fetch('/api/addmessage', {
@@ -31,10 +33,8 @@ function ChatInput() {
         body: JSON.stringify({ message }),
       });
 
-      console.log('res', res);
-
       const data = await res.json();
-      return [data?.message, { ...(messages ?? []) }];
+      return [data.message, ...(messages ?? [])];
     };
 
     await mutate(uploadMessage, {

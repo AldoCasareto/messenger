@@ -2,7 +2,8 @@ import { Chat } from '../typings';
 
 export const fetcher = async () => {
   const res = await fetch('http://localhost:3001/api/getmessages');
-  const data: Chat[] = await res.json();
+  const data = await res.json();
+  const messages: Chat[] = data.messages;
 
-  return data;
+  return messages;
 };

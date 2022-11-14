@@ -13,13 +13,13 @@ type ErrorData = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ErrorData | Data>) {
   if (req.method !== 'GET') return res.status(405).json({ body: 'method not allowed' });
 
-  const fetchMessages = await client.hvals('messages');
+  const messagesRes = await client.hvals('messages');
 
-  const messages: Chat[] = fetchMessages
+  const messages: Chat[] = messagesRes
     .map((message) => JSON.parse(message))
     .sort((a, b) => b.created_at - a.created_at);
 
-  const messageArray = messages;
+  console.log(`messages = `, messages);
 
   res.status(200).json({ messages });
 }

@@ -1,5 +1,5 @@
 export type Chat = {
-  chat: string;
+  message: string;
   id: string;
   created_at: date;
   username: string;

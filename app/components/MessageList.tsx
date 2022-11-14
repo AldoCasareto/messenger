@@ -1,16 +1,20 @@
-import React from 'react';
-import { Chat } from '../../typings';
+'use client';
 
-async function MessageList() {
+import { Chat } from '../../typings';
+import { fetcher } from '../../utils/fetchMessages';
+import useSWR from 'swr';
+
+function MessageList() {
+  const { data: messages, error, mutate } = useSWR<Chat[]>('/api/getmessages', fetcher);
+
   return (
     <div>
-      hello!
-      {/* {messages.map(({ chat, created_at }) => (
-        <div>
-          <p>{chat}-</p>
-          <p>{created_at}</p>
+      {messages?.map(({ message, id }) => (
+        <div key={id}>
+          <p>{message}</p>
+          <p>hello</p>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 }

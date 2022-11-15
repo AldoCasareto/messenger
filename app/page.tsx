@@ -2,14 +2,16 @@ import React from 'react';
 import ChatInput from './components/ChatInput';
 import MessageList from './components/MessageList';
 
-export default function HomePage() {
+async function HomePage() {
+  const data = await fetch(`${process.env.VERCEL_URL}/api/getmessages`);
   return (
-    <div className='text-md'>
+    <main>
       <main>
-        {/* @ts-ignore */}
         <MessageList />
         <ChatInput />
       </main>
-    </div>
+    </main>
   );
 }
+
+export default HomePage;

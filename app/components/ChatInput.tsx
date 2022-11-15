@@ -9,8 +9,6 @@ function ChatInput() {
   const [chat, setChat] = useState('');
   const { data: messages, error, mutate } = useSWR<Chat[]>('/api/getmessages', fetcher);
 
-  console.log(`foo = `, messages);
-
   const handleChat = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const message: Chat = {
@@ -21,9 +19,6 @@ function ChatInput() {
       profilePic: 'https://www.fairtravel4u.org/wp-content/uploads/2018/06/sample-profile-pic.png',
       email: 'acasareto@gmail.com',
     };
-
-    console.log(message);
-
     const uploadMessage = async () => {
       const res = await fetch('/api/addmessage', {
         method: 'POST',

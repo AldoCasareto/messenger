@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { serverPusher } from '../../pusher';
 import client from '../../redis';
 import { Chat } from '../../typings';
 
@@ -11,13 +12,13 @@ type ErrorData = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ErrorData | Data>) {
-  console.log('req.method', req.method);
   if (req.method !== 'POST') return res.status(405).json({ body: 'method not allowed' });
 
   const { message } = req.body;
   const newMessage = { ...message, created_at: Date.now() };
 
   await client.hset('messages', message.id, JSON.stringify(newMessage));
+  serverPusher.trigger('messages', 'new-message', newMessage);
 
   res.status(200).json({ message: newMessage });
 }

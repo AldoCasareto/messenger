@@ -44,7 +44,10 @@ function ChatInput() {
   };
 
   return (
-    <form className='flex px-10 py-5 space-x-2 border-t border-gray-100' onSubmit={handleChat}>
+    <form
+      className='flex px-10 py-5 space-x-2 border-t border-gray-100 bg-white'
+      onSubmit={handleChat}
+    >
       <label htmlFor='messageBox' />
       <input
         id='messageBox'

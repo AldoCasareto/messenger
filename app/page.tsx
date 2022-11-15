@@ -4,7 +4,7 @@ import MessageList from './components/MessageList';
 
 export default function HomePage() {
   return (
-    <div className='text-4xl'>
+    <div className='text-md'>
       <main>
         {/* @ts-ignore */}
         <MessageList />

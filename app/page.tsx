@@ -1,13 +1,19 @@
 import React from 'react';
+import { Chat } from '../typings';
 import ChatInput from './components/ChatInput';
 import MessageList from './components/MessageList';
 
 async function HomePage() {
-  const data = await fetch(`${process.env.VERCEL_URL}/api/getmessages`);
+  const URL = process.env.VERCEL_URL || 'http://localhost:3000';
+
+  const res = await fetch(`${URL}/api/getmessages`);
+  const data = await res.json();
+  const messages: Chat[] = data.messages;
+
   return (
     <main>
       <main>
-        <MessageList />
+        <MessageList initialMessages={messages} />
         <ChatInput />
       </main>
     </main>

@@ -2,9 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import LogOutButton from './LogOutButton';
+import { unstable_getServerSession } from 'next-auth/next';
 
-function Header() {
-  const session = true;
+async function Header() {
+  const session = await unstable_getServerSession();
 
   return (
     <header className='sticky top-0 z-50 bg-white flex justify-between items-center p-10 shadow-sm'>
@@ -16,11 +17,11 @@ function Header() {
               alt='profile picture'
               height={10}
               width={50}
-              src='https://links.papareact.com/jne'
+              src={session.user?.image!}
             />
             <div>
-              <p className='text-blue-400'>logged in as</p>
-              <p className='font-bold text-lg'>Aldo</p>
+              <p className='text-blue-400'>Logged in as</p>
+              <p className='font-bold text-lg'>{session.user?.name}</p>
             </div>
           </div>
           <LogOutButton />

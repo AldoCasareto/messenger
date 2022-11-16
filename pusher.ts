@@ -9,8 +9,6 @@ export const serverPusher = new Pusher({
   useTLS: true,
 });
 
-console.log(process.env.PUSHER_KEY);
-
 export const clientPusher = new ClientPusher(`'${process.env.PUSHER_KEY}'`, {
   cluster: 'eu',
   forceTLS: true,

@@ -1,13 +1,17 @@
 import Image from 'next/image';
 import React from 'react';
 import { Chat } from '../../typings';
+import { useSession } from 'next-auth/react';
 
 type MessageProps = {
   message: Chat;
 };
 
 function Message({ message }: MessageProps) {
-  const isUser = true;
+  const { data: session } = useSession();
+
+  const isUser = session?.user?.email === message.email;
+
   return (
     <div className={`flex w-fit ${isUser && 'ml-auto'}`}>
       <div className={`flex-shrink-0 ${isUser && 'order-2'}`}>

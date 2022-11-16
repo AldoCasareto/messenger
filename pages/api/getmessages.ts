@@ -15,9 +15,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
   const messagesRes = await client.hvals('messages');
 
+  console.log(messagesRes);
+
   const messages: Chat[] = messagesRes
     .map((message) => JSON.parse(message))
-    .sort((a, b) => b.created_at - a.created_at);
+    .sort((a, b) => a.created_at - b.created_at);
+
+  console.log(`messages = `, messages);
 
   res.status(200).json({ messages });
 }

@@ -17,6 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const { message } = req.body;
   const newMessage = { ...message, created_at: Date.now() };
 
+  console.log(`newMessage.created_at = `, newMessage.created_at);
+
   await client.hset('messages', message.id, JSON.stringify(newMessage));
   serverPusher.trigger('messages', 'new-message', newMessage);
 
